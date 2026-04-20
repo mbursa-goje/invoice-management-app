@@ -1,7 +1,7 @@
 import React from "react";
 //This imports are the three building blocks for navigation
 //<BrowserRouter> is a wrapper that must surround the entire application. It connects the React app to the browser's URL history
-//Without this the app this the app would not know the URL changes
+//Without this the app would not know the URL changes
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import InvoiceList from "./pages/InvoiceList";
 import InvoiceDetail from "./pages/InvoiceDetail";
