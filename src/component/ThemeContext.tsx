@@ -32,8 +32,11 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         // We tell React to go into the localStorage and retrieve the theme saved in the localStorage, doing this is a very slow process
         // So it is ran only once on when the app loads
         // localStorage.getItem('invoice-theme'); the browser is being checked whether a th euser saved a theme preference the last time the website was visited
+        // If the user has never entered the the site before the savedTheme variable will be empty
         const savedTheme = localStorage.getItem('invoice-theme');
+        // This ensures the savedTheme is strictly either 'light' or 'dark'
         return (savedTheme === 'dark' || savedTheme === 'light')
+            // If the savedTheme is set return it, if not return 'light'
             ? savedTheme : 'light';
     });
 
@@ -63,6 +66,9 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     //The funciton that will be called when the user clicks the moon/sun icon
     const toggleTheme = () => {
+        // Passing it as a function instead of a variable, ensures React updates state immediately
+        // It ensures React retuns the up to date state value which is the argument prevTheme
+        // If prevTheme is dark return light, if anything else('dark') return light
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     };
 

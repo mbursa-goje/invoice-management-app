@@ -52,7 +52,7 @@ const styles = {
         width: '100px',
         height: '100vh',
         // as const stands for constant assertion
-        // This ensures the value passed to assertion is 'fixed' and not just a generic string
+        // This ensures the value passed to assertion is 'fixed' and not just a generic string  
         position: 'fixed' as const,
         left: 0,
         top: 0,
