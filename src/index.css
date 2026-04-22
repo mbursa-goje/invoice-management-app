@@ -1,3 +1,4 @@
+@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&display=swap');
 
 /* ======= LIGHT THEME (Default) ======== */
@@ -7,7 +8,7 @@
   --primary: #7c5dfa;
   --primary-hover: #9277ff;
   --danger: #ec5757;
-  --danger: #ff9797;
+  --danger-hover: #ff9797;
 
   /* Backgrounds */
   --bg-body: #f8f8fb;
