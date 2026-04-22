@@ -68,7 +68,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const toggleTheme = () => {
         // Passing it as a function instead of a variable, ensures React updates state immediately
         // It ensures React retuns the up to date state value which is the argument prevTheme
-        // If prevTheme is dark return light, if anything else('dark') return light
+        // If prevTheme is 'light' return 'dark', if anything else('dark') return light
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     };
 

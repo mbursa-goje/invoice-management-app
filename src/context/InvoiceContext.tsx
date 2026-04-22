@@ -91,6 +91,10 @@ export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children })
     }
 
     return (
+        // Every context object that React creates automatically comes with two built-in components attached to it:
+        // .Provider us the Broadcaster. It "provides" the data downward
+        // .Consumer- which is the old way of receiving data(hooks) are used instead now
+        // <InvoiceContext.Provider> is React haning us a component specifically designed to wrap other components and feed them data
         <InvoiceContext.Provider value={
             {
                 invoices,
@@ -110,8 +114,10 @@ export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children })
 
 // Custom hook - any component can call useInvoices() instead of useContext(InvoiceContext)
 export const useInvoices = () => {
+    // useContext() is used to used the context and InvoiceContext is passed into it, and it returns whatever is in the value prop of the nearest
     const context = useContext(InvoiceContext);
     if (!context) {
+        // This sends a message to the console if the children are not wrapped in <InvoiceProvider>
         throw new Error('useInvoices must be within an InvoiceProvider')
     }
     return context;

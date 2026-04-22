@@ -1,6 +1,6 @@
 // This is a React hook that allows the use of the context in set in the main.tsx
 import React, { useContext } from "react";
-import { ThemeContext } from "./ThemeContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 // The code below is to import the a Moon and Sun icon from lucide-react library
 // lucide-react is a clean icon library
