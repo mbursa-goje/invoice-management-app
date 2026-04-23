@@ -9,6 +9,7 @@ interface ButtonProps {
     // The ? after most props means they are optional. If no variant is passed it defaults to 'primary'
     // And developers can put optional text inside they do not have to
     // variant = 'primary' the button always has a style even if one is not specified
+    icon?: React.ReactNode;
     variant?: ButtonVariant;
     onClick?: () => void;
     type?: 'button' | 'submit' | 'reset';
@@ -18,6 +19,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({
     children,
+    icon,
     variant = 'primary',
     onClick,
     type = 'button',
@@ -26,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
 
     // Base classes applied to every button regardless of variant
-    const baseClasses = 'px-6 py-3 rounded-full font-bold text-sm transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseClasses = 'rounded-full font-bold text-[12px] tracking-[-0.25px] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
 
     // Variant-specific classes
     // Record is a built-in TypeScript utility type. Utility types are special TypeScript tools that transform or construct mew types. They are helper functions for types instead of data
@@ -37,11 +39,14 @@ const Button: React.FC<ButtonProps> = ({
     // by annotating with Record<ButtonVariant, string>, TypeScript now enforces two guarantees simultaneously:
     // 1. Completeness: Every single key from ButtonVariant('primary', 'secondary', 'danger', 'ghost') MUST be present. Deleting anyone of them will throw an error.
     // 2. No Extra Keys: no extra keys can be added if they do not exist in ButtonVariant.
-    const variantClasses: Record<ButtonVariant, string> = {
-        primary: 'bg-[#7c5dfa] text-white hover:bg-[#9277ff]',
-        secondary: 'bg-[#f9fafe] text-[#7e88c3] hover:bg-[#dfe3fa]',
-        danger: 'bg-[#ec5757] text-white hover:bg-[#ff9797]',
-        ghost: 'bg-[#373b53] text-[#888eb0] hover:bg-[#0c0e16]',
+    const getVariantStyle = (v: ButtonVariant): React.CSSProperties => {
+        switch (v) {
+            case 'primary': return { backgroundColor: 'var(--brand-purple)', color: 'white' };
+            case 'secondary': return { backgroundColor: 'var(--bg-btn-secondary)', color: 'var(--primary)' };
+            case 'danger': return { backgroundColor: 'var(--brand-red)', color: 'white' };
+            case 'ghost': return { backgroundColor: 'var(--bg-sidebar)', color: 'var(--text-secondary)' };
+            default: return {};
+        }
     };
 
     return (
@@ -49,9 +54,24 @@ const Button: React.FC<ButtonProps> = ({
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`${baseClasses} ${variantClasses[variant]} ${className}`}
+            className={`${baseClasses} ${className}`}
+            style={{
+                ...getVariantStyle(variant),
+                height: '48px',
+                display: 'flex',
+                alignItems: 'center',
+                paddingLeft: '8px',
+                paddingRight: '24px',
+                gap: '16px',
+                border: 'none',
+            }}
         >
-            {children}
+            {/* The icon container (flex-shrink-0 prevents squashing) */}
+            {icon && <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>{icon}</div>}
+            
+            <div style={{ whiteSpace: 'nowrap' }}>
+                {children}
+            </div>
         </button>
     );
 };

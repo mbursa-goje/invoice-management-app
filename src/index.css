@@ -1,9 +1,15 @@
 @import "tailwindcss";
+
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&display=swap');
 
 /* ======= LIGHT THEME (Default) ======== */
 
 :root{
+  /* Brand Colors */
+  --brand-purple: #7c5dfa;
+  --brand-purple-light: #9277ff;
+  --brand-red: #ec5757;
+  --brand-red-light: #ff9797;
   /* Brand Colors */
   --primary: #7c5dfa;
   --primary-hover: #9277ff;
@@ -15,22 +21,24 @@
   --bg-card: #ffffff;
   --bg-sidebar: #373b53;
 
+  /* Typography */
+  --text-primary: #0c0e16;
+  --text-secondary: #888eb0;
+  --font-main: 'League Spartan', sans-serif;
+
   /* Borders and UI elements */
   --border-color: #dfe3fa;
   --input-bg: #ffffff;
   --input-border: #dfe3fa;
-
-  /* Typography */
-  --font-main: 'League Spartan', sans-serif;
+  --bg-btn-secondary: #f9fafe;
 }
 
 /* ======DARK THEME===== */
-/* When the 'data-theme="dark"' attribute is added to the <body> or <html>,
-these variables override the defaults */
 [data-theme='dark']{
   --bg-body: #141625;
   --bg-card: #1e2139;
   --bg-sidebar: #1e2139;
+  --bg-btn-secondary: #252945;
 
   --text-primary: #ffffff;
   --text-secondary: #dfe3fa;
@@ -38,7 +46,6 @@ these variables override the defaults */
   --border-color: #252945;
   --input-bg: #1e2139;
   --input-border: #252945;
-
 }
 
 /*==========GLOBAL RESET & BASE STYLES========= */
@@ -53,8 +60,13 @@ body{
   background-color: var(--bg-body);
   color: var(--text-primary);
   /* Smooth transition when toggling themes */
-  transition: background-color 0.3s ease, color 0.3 ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100vh;
+}
+
+/* Force inherited font on form elements */
+button, input, select, textarea {
+  font-family: inherit;
 }
 
 button{

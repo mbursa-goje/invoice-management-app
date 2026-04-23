@@ -55,8 +55,10 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         //this if/else block switches the attribute of the body from light to dark when the toggle is clicked.
         if (theme === 'dark') {
             document.body.setAttribute('data-theme', 'dark');
+            document.body.classList.add('dark');
         } else {
             document.body.removeAttribute('data-theme');
+            document.body.classList.remove('dark');
         }
 
         //the dependency array [theme] is the most crucial part of the useEffect.

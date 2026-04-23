@@ -17,13 +17,13 @@ const StatusBadge: React.FC<statusBadgeProps> = ({
     const variantClasses: Record<StatusBadgeVariant, string> = {
         paid: 'text-[#33d69f] bg-[#33d69f]/10',
         pending: 'text-[#ff8f00] bg-[#ff8f00]/10',
-        draft: 'text-[#373b53] bg-[#373b53]/10 dark:text-[#dfe3fa] dark:bg-[#dfe3fa]/10',
+        draft: 'text-[var(--text-secondary)] bg-[var(--text-secondary)]/10',
     };
 
     const dotClasses: Record<StatusBadgeVariant, string> = {
         paid: 'bg-[#33d69f]',
         pending: 'bg-[#ff8f00]',
-        draft: 'bg-[#373b53] dark:bg-[#dfe3fa]',
+        draft: 'bg-[var(--text-secondary)]',
     };
 
     return (

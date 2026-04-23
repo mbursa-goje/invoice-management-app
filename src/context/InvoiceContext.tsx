@@ -122,3 +122,5 @@ export const useInvoices = () => {
     }
     return context;
 }
+
+export default InvoiceContext;

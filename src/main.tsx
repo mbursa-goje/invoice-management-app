@@ -2,6 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { InvoiceProvider } from './context/InvoiceContext'
 import { ThemeProvider } from './context/ThemeContext'
 
 
@@ -25,7 +26,9 @@ createRoot(document.getElementById('root')!).render(
     {/* The ThemeProvider acts like the giant umbrella covering the entire application */}
     {/* Now every single component can grab the theme and toggleTheme function instantly using a hook */}
     <ThemeProvider>
-      <App />
+      <InvoiceProvider>
+        <App />
+      </InvoiceProvider>
     </ThemeProvider>
   </React.StrictMode>,
 )
