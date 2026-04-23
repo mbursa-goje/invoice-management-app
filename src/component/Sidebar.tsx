@@ -1,7 +1,7 @@
+import logo from '../assets/invoice-logo.svg';
 // This is a React hook that allows the use of the context in set in the main.tsx
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-
 // The code below is to import the a Moon and Sun icon from lucide-react library
 // lucide-react is a clean icon library
 import { Moon, Sun } from "lucide-react";
@@ -24,7 +24,8 @@ const Sidebar: React.FC = () => {
         <aside style={styles.sidebar}>
             {/* App Logo Placeholder */}
             <div style={styles.logoContainer}>
-                <div style={styles.logo}></div>
+                {/* <div style={styles.logo}></div> */}
+                <img src={logo} alt="Invoice Logo" className='w-8 h-8' />
             </div>
 
             {/* Bottom section (Theme Toggle and Avatar) */}

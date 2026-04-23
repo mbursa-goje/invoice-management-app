@@ -9,7 +9,7 @@ import { ThemeProvider } from './context/ThemeContext'
 //! is a TypeScript "non-null assertion". It tells the TypeScript that an ID of root exists in the HTML, so it should not throw an error thinking it might be null
 createRoot(document.getElementById('root')!).render(
   // React.StrictMode is a special wrapper provided by React specifically for development purposes
-  // It is completely invisible on the screen and gets automatically stripped out when the app is built for production, so it does not affect your live users at all.
+  // It is completely invisible on the screen and gets automatically stripped out when the app is built for production, so it does not affect live users at all.
   // Its main job is to act like a strict code inspector to help catch bugs early. It does two big things
   // 1. Double render: When the app is ran in development mode, <React.StrictMode> intentionally renders all of the components twice in a row.
   // It mounts the component, immediately unmounts it, and mounts it again

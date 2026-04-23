@@ -7,6 +7,7 @@ type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost';
 interface ButtonProps {
     children: React.ReactNode
     // The ? after most props means they are optional. If no variant is passed it defaults to 'primary'
+    // And developers can put optional text inside they do not have to
     // variant = 'primary' the button always has a style even if one is not specified
     variant?: ButtonVariant;
     onClick?: () => void;
