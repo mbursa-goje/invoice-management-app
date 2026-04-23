@@ -15,10 +15,9 @@ interface InvoiceFormProps {
 
 const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdit }) => {
     const context = useContext(InvoiceContext);
-    if (!context) return null;
+    if (!context || !isOpen) return null;
     const { addInvoice, updateInvoice } = context;
 
-    // Helper to generate a random Invoice ID (e.g., RT3080)
     const generateId = () => {
         const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const numbers = '0123456789';
@@ -44,15 +43,11 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
 
     const [formData, setFormData] = useState<Partial<Invoice>>(initialData);
 
-    // Sync state when invoiceToEdit changes
     useEffect(() => {
         if (invoiceToEdit) setFormData(invoiceToEdit);
         else setFormData(initialData);
-    }, [invoiceToEdit]);
+    }, [invoiceToEdit, isOpen]);
 
-    if (!isOpen) return null;
-
-    // Handle nested address updates
     const handleAddressChange = (type: 'senderAddress' | 'clientAddress', field: string, value: string) => {
         setFormData(prev => ({
             ...prev,
@@ -60,7 +55,6 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
         }));
     };
 
-    // Item Management
     const addItem = () => {
         const newItem: Item = { name: '', quantity: 1, price: 0, total: 0 };
         setFormData(prev => ({
@@ -110,63 +104,65 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
     ];
 
     return (
-        <div className="fixed inset-0 z-[200] flex">
+        <div className="fixed inset-0 z-[2000]">
+            {/* Backdrop */}
             <div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
+            {/* The Sliding Form */}
             <aside 
-                className="relative w-full max-w-[720px] h-full overflow-y-auto pt-8 md:pt-12 pb-32 px-6 md:px-14"
-                style={{ backgroundColor: 'var(--bg-body)' }}
+                className="fixed top-0 left-0 md:left-[103px] w-full max-w-[720px] h-full overflow-y-auto bg-[var(--bg-body)] pt-20 pb-32 px-6 md:px-14 animate-slide-in shadow-2xl"
             >
                 <h2 className="text-[24px] font-bold text-[var(--text-primary)] mb-12">
-                    {invoiceToEdit ? `Edit #${invoiceToEdit.id}` : 'New Invoice'}
+                    {invoiceToEdit ? (
+                        <>Edit <span className="text-[var(--text-secondary)]">#</span>{invoiceToEdit.id}</>
+                    ) : 'New Invoice'}
                 </h2>
 
-                <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-10">
+                <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-12">
                     {/* Bill From */}
                     <section>
-                        <h3 className="text-[12px] font-bold text-[var(--brand-purple)] mb-6">Bill From</h3>
+                        <h3 className="text-[12px] font-bold text-[var(--brand-purple)] mb-6 uppercase tracking-wider">Bill From</h3>
                         <Input 
                             label="Street Address" id="s-street" value={formData.senderAddress?.street || ''}
                             onChange={(e) => handleAddressChange('senderAddress', 'street', e.target.value)}
                         />
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+                        <div className="grid grid-cols-3 gap-6 mt-6">
                             <Input label="City" id="s-city" value={formData.senderAddress?.city || ''} onChange={(e) => handleAddressChange('senderAddress', 'city', e.target.value)} />
                             <Input label="Post Code" id="s-post" value={formData.senderAddress?.postCode || ''} onChange={(e) => handleAddressChange('senderAddress', 'postCode', e.target.value)} />
-                            <Input label="Country" id="s-country" className="col-span-2 md:col-span-1" value={formData.senderAddress?.country || ''} onChange={(e) => handleAddressChange('senderAddress', 'country', e.target.value)} />
+                            <Input label="Country" id="s-country" value={formData.senderAddress?.country || ''} onChange={(e) => handleAddressChange('senderAddress', 'country', e.target.value)} />
                         </div>
                     </section>
 
                     {/* Bill To */}
                     <section>
-                        <h3 className="text-[12px] font-bold text-[var(--brand-purple)] mb-6">Bill To</h3>
+                        <h3 className="text-[12px] font-bold text-[var(--brand-purple)] mb-6 uppercase tracking-wider">Bill To</h3>
                         <Input label="Client's Name" id="c-name" value={formData.clientName || ''} onChange={(e) => setFormData({...formData, clientName: e.target.value})} />
                         <div className="mt-6">
-                            <Input label="Client's Email" id="c-email" value={formData.clientEmail || ''} onChange={(e) => setFormData({...formData, clientEmail: e.target.value})} />
+                            <Input label="Client's Email" id="c-email" placeholder="e.g. email@example.com" value={formData.clientEmail || ''} onChange={(e) => setFormData({...formData, clientEmail: e.target.value})} />
                         </div>
                         <div className="mt-6">
                             <Input label="Street Address" id="c-street" value={formData.clientAddress?.street || ''} onChange={(e) => handleAddressChange('clientAddress', 'street', e.target.value)} />
                         </div>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+                        <div className="grid grid-cols-3 gap-6 mt-6">
                             <Input label="City" id="c-city" value={formData.clientAddress?.city || ''} onChange={(e) => handleAddressChange('clientAddress', 'city', e.target.value)} />
                             <Input label="Post Code" id="c-post" value={formData.clientAddress?.postCode || ''} onChange={(e) => handleAddressChange('clientAddress', 'postCode', e.target.value)} />
                             <Input label="Country" id="c-country" value={formData.clientAddress?.country || ''} onChange={(e) => handleAddressChange('clientAddress', 'country', e.target.value)} />
                         </div>
                     </section>
 
-                    {/* Dates & Terms */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-6">
                         <DatePicker label="Invoice Date" value={formData.createdAt || ''} onChange={(date) => setFormData({...formData, createdAt: date})} />
                         <Select label="Payment Terms" options={paymentOptions} value={formData.paymentTerms || 30} onChange={(val) => setFormData({...formData, paymentTerms: Number(val)})} />
                     </div>
 
-                    <Input label="Project Description" id="desc" value={formData.description || ''} onChange={(e) => setFormData({...formData, description: e.target.value})} />
+                    <Input label="Project Description" id="desc" placeholder="e.g. Graphic Design Service" value={formData.description || ''} onChange={(e) => setFormData({...formData, description: e.target.value})} />
 
                     {/* Item List */}
                     <section>
-                        <h3 className="text-[18px] font-bold text-[#777f98] mb-4">Item List</h3>
+                        <h3 className="text-[18px] font-bold text-[#777f98] mb-6">Item List</h3>
                         <div className="flex flex-col gap-4">
                             {formData.items?.map((item, index) => (
-                                <div key={index} className="grid grid-cols-[2fr_1fr_1fr_1fr_auto] gap-4 items-end">
+                                <div key={index} className="grid grid-cols-[3fr_1fr_2fr_1fr_auto] gap-4 items-end">
                                     <Input label="Item Name" id={`n-${index}`} value={item.name} onChange={(e) => updateItem(index, 'name', e.target.value)} />
                                     <Input label="Qty." id={`q-${index}`} type="number" value={item.quantity} onChange={(e) => updateItem(index, 'quantity', e.target.value)} />
                                     <Input label="Price" id={`p-${index}`} type="number" value={item.price} onChange={(e) => updateItem(index, 'price', e.target.value)} />
@@ -174,7 +170,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
                                         <label className="text-[13px] font-medium text-[var(--text-secondary)]">Total</label>
                                         <span className="h-[58px] flex items-center font-bold text-[var(--text-secondary)]">£{item.total.toFixed(2)}</span>
                                     </div>
-                                    <button type="button" onClick={() => removeItem(index)} className="mb-4 text-[var(--text-secondary)] hover:text-[var(--brand-red)] transition-colors">
+                                    <button type="button" onClick={() => removeItem(index)} className="mb-4 text-[#888eb0] hover:text-[var(--brand-red)] transition-colors">
                                         <Trash2 size={18} />
                                     </button>
                                 </div>
@@ -182,18 +178,20 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
                         </div>
                         <Button variant="secondary" type="button" className="w-full mt-4" onClick={addItem} icon={<Plus size={14} />}>Add New Item</Button>
                     </section>
-
-                    {/* Form Footer */}
-                    <div className="fixed bottom-0 left-0 md:left-[100px] w-full md:w-[calc(100%-100px)] bg-[var(--bg-body)] p-6 md:px-14 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-                        <Button variant="secondary" onClick={onClose}>Discard</Button>
-                        <div className="flex gap-2">
-                            {!invoiceToEdit && (
-                                <Button variant="ghost" onClick={(e) => handleSubmit(e, 'draft' as InvoiceStatus)}>Save as Draft</Button>
-                            )}
-                            <Button variant="primary" type="submit">Save & Send</Button>
-                        </div>
-                    </div>
                 </form>
+
+                {/* Form Footer */}
+                <div className="fixed bottom-0 left-0 md:left-[103px] w-full md:w-[720px] bg-[var(--bg-body)] p-6 md:px-14 flex justify-between items-center shadow-[0_-10px_30px_rgba(0,0,0,0.1)] z-[2100] rounded-tr-[20px]">
+                    <Button variant="secondary" onClick={onClose}>Discard</Button>
+                    <div className="flex gap-4">
+                        {!invoiceToEdit && (
+                            <Button variant="ghost" onClick={(e) => handleSubmit(e, 'draft' as InvoiceStatus)}>Save as Draft</Button>
+                        )}
+                        <Button variant="primary" type="button" onClick={(e) => handleSubmit(e)}>
+                            {invoiceToEdit ? 'Save Changes' : 'Save & Send'}
+                        </Button>
+                    </div>
+                </div>
             </aside>
         </div>
     );

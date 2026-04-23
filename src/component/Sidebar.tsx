@@ -1,38 +1,20 @@
 import logo from '../assets/invoice-logo.svg';
-// This is a React hook that allows the use of the context in set in the main.tsx
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-// The code below is to import the a Moon and Sun icon from lucide-react library
-// lucide-react is a clean icon library
 import { Moon, Sun } from "lucide-react";
 
 const Sidebar: React.FC = () => {
-    // The code below is the use of the ThemeContext
-    // The Sidebar component uses ThemeContext in the the highest parent component, through the aid of the useContext() react hook
     const themeContext = useContext(ThemeContext);
-
-    // The code below is a safety check if the context is not wrapped properly or undefined
     if (!themeContext) return null;
-
-    // Destructure the value of the context
-    // This cracks open the context object and extracts the exact string('light' or 'dark')
     const { theme, toggleTheme } = themeContext;
 
     return (
-        // JavaScript object is used to style the component instead of using raw CSS
-        // The HTML elements is mapped to a specific styles inside the styles object
         <aside style={styles.sidebar}>
-            {/* App Logo Placeholder */}
             <div style={styles.logoContainer}>
-                {/* <div style={styles.logo}></div> */}
-                <img src={logo} alt="Invoice Logo" className='w-8 h-8' />
+                <img src={logo} alt="Invoice Logo" className='w-10 h-10' />
             </div>
 
-            {/* Bottom section (Theme Toggle and Avatar) */}
             <div style={styles.bottomSection}>
-                {/* The Button calls toggleTheme() when clicked
-                It asks: Is the theme 'light'? If yes, show the Moon icon. If no show the Sun icon */}
-
                 <button onClick={toggleTheme} style={styles.themeButton}>
                     {theme === 'light' ? (
                         <Moon size={24} color="#888eb0" />
@@ -41,7 +23,11 @@ const Sidebar: React.FC = () => {
                     )}
                 </button>
 
-                <div style={styles.avatar}></div>
+                <div className="w-full h-[1px] bg-[#494e6e] mb-6 opacity-30"></div>
+
+                <div style={styles.avatar}>
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="avatar" className="rounded-full" />
+                </div>
             </div>
         </aside>
     );
@@ -49,11 +35,9 @@ const Sidebar: React.FC = () => {
 
 const styles = {
     sidebar: {
-        backgroundColor: 'var(--bg-sidebar)',
-        width: '100px',
+        backgroundColor: '#373b53', 
+        width: '103px',
         height: '100vh',
-        // as const stands for constant assertion
-        // This ensures the value passed to assertion is 'fixed' and not just a generic string  
         position: 'fixed' as const,
         left: 0,
         top: 0,
@@ -61,46 +45,35 @@ const styles = {
         flexDirection: 'column' as const,
         justifyContent: 'space-between',
         borderRadius: '0 20px 20px 0',
-        zIndex: 50,
+        zIndex: 1000, 
     },
-
     logoContainer: {
-        backgroundColor: 'var(--primary)',
-        height: '100px',
-        width: '100%',
+        backgroundColor: '#7c5dfa',
+        height: '103px',
+        width: '103px',
         borderRadius: '0 20px 20px 0',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
-    },
-    logo: {
-        width: '40px',
-        height: '40px',
-        backgroundColor: 'white',
-        borderRadius: '50%',
+        justifyContent: 'center',
     },
     bottomSection: {
         display: 'flex',
-        // As const is used 
         flexDirection: 'column' as const,
         alignItems: 'center',
         paddingBottom: '24px',
+        width: '100%',
     },
     themeButton: {
         marginBottom: '24px',
-        transition: 'transform 0.2s',
-    },
-    divider: {
-        width: '100%',
-        height: '1px',
-        backgroundColor: '#494e6e',
-        marginBottom: '24px',
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
     },
     avatar: {
         width: '40px',
         height: '40px',
-        backgroundColor: '#dfe3fa',
         borderRadius: '50%',
+        overflow: 'hidden',
     }
 }
 

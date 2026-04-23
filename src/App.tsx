@@ -8,14 +8,19 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex flex-col md:flex-row min-h-screen bg-[var(--bg-body)]">
+      <div className="min-h-screen bg-[var(--bg-body)]">
         <Sidebar />
         
-        <main className="flex-1 transition-all duration-300 md:ml-[100px] mt-[72px] md:mt-0 p-4 md:p-12">
-          <Routes>
-            <Route path="/" element={<InvoiceList />} />
-            <Route path="/invoice/:id" element={<InvoiceDetail />} />
-          </Routes>
+        {/* We use a large left padding to clear the sidebar and center the content */}
+        <main className="md:pl-[103px] transition-all duration-300 w-full flex justify-center">
+          <div className="w-full max-w-[730px] px-6 py-12 md:py-20 flex flex-col items-center">
+            <div className="w-full">
+              <Routes>
+                <Route path="/" element={<InvoiceList />} />
+                <Route path="/invoice/:id" element={<InvoiceDetail />} />
+              </Routes>
+            </div>
+          </div>
         </main>
       </div>
     </BrowserRouter>
