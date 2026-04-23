@@ -43,17 +43,20 @@ The app will be available at `http://localhost:5173` by default.
 | Tailwind CSS v4 | Utility-first styling framework |
 | CSS Variables | Design tokens & theming system |
 
-### Project Structure
-```text
-src/
+### Project Structusrc/
 ├── context/
 │   ├── ThemeContext.tsx     # Light/Dark mode global state
 │   └── InvoiceContext.tsx   # Invoice CRUD global state
 ├── component/
-│   ├── Sidebar.tsx          # Fixed navigation sidebar
-├── ui/                      # Reusable UI components (Phase 4)
-│   ├── Button.tsx           # Reusable Button
-│   └── StatusBadge.tsx      # Invoice status badge indicator
+│   ├── Sidebar.tsx          # Fixed navigation sidebar with logo
+├── ui/                      # Reusable Design System (Phase 4)
+│   ├── Button.tsx           # Reusable Button with variants
+│   ├── StatusBadge.tsx      # Invoice status indicator
+│   ├── FilterDropdown.tsx   # Status filtering control
+│   ├── Input.tsx            # Form input with validation states
+│   ├── Select.tsx           # Custom dropdown for payment terms
+│   ├── DatePicker.tsx       # Custom calendar for invoice dating
+│   └── Modal.tsx            # Confirmation overlays (e.g., Delete)
 ├── pages/
 │   ├── InvoiceList.tsx      # Home page — lists all invoices
 │   └── InvoiceDetail.tsx    # Detail page — single invoice view
@@ -80,44 +83,39 @@ The app uses **React Context API** for global state, avoiding third-party state 
 
 ## ⚖️ Architectural Trade-offs
 
+### Custom UI Components vs. UI Libraries
+**Chosen:** Building a custom Design System from scratch  
+**Alternative:** Material UI, Shadcn/UI, Headless UI  
+**Reason:** To ensure 100% adherence to the pixel-perfect Figma design and to demonstrate mastery of React's core concepts (State, Props, and Lifecycle). Custom components like the `DatePicker` and `Select` provide a lighter bundle size and a more cohesive user experience tailored specifically to the invoice workflow.
+
 ### CSS Variables + Tailwind CSS v4 vs. CSS-in-JS
 **Chosen:** Tailwind CSS v4 utility classes alongside CSS Custom Properties  
 **Alternative:** Styled Components, Emotion, plain vanilla CSS  
 **Reason:** Tailwind v4 ships as a Vite plugin (`@tailwindcss/vite`) requiring zero config files. It provides a utility-first workflow that dramatically speeds up UI development. CSS Custom Properties are retained as the theming backbone — the `data-theme="dark"` toggle system overrides CSS variables, which Tailwind classes reference. This gives us the best of both worlds: fast utility-class development and powerful theme switching.
 
-### React Context vs. Redux / Zustand
-**Chosen:** React Context API  
-**Alternative:** Redux Toolkit, Zustand  
-**Reason:** The app's state requirements are straightforward — a list of invoices and a theme flag. The additional boilerplate, middleware, and devtools of Redux are overkill here. Context is sufficient and keeps the project dependency-light.
-
-### localStorage vs. Backend Database
-**Chosen:** `localStorage` for persistence  
-**Alternative:** REST API with a real database  
-**Reason:** This is a front-end focused project. `localStorage` provides zero-config persistence that survives page reloads. The trade-off is that data is device-specific and not shareable across browsers.
-
 ---
 
 ## ♿ Accessibility Notes
 
-- Semantic HTML elements used throughout (`<aside>`, `<main>`, `<header>`, `<button>`).
-- Theme toggle button uses icon-only design — an `aria-label` is provided for screen readers.
-- Focus rings preserved for keyboard navigation.
-- Colour contrast ratios maintained across both light and dark themes.
-- *(More accessibility improvements tracked below)*
+- **Semantic HTML**: Used throughout (`<aside>`, `<main>`, `<header>`, `<button>`).
+- **Input Labels**: All form elements are connected via `id` and `htmlFor` for screen reader compatibility.
+- **Color Contrast**: WCAG AA contrast ratios maintained across both light and dark themes.
+- **Status Badges**: Use distinct color-coding and high contrast text for readability.
 
 ---
 
 ## ✨ Improvements Beyond Requirements
 
 - **Persistent Dark/Light Mode**: Theme preference saved to `localStorage` and restored on every visit.
-- **TypeScript Strict Mode**: Full type safety enforced across all components, contexts, and interfaces using TypeScript, preventing runtime type errors.
-- **Conventional Commits**: All version control follows the Conventional Commits specification (`feat`, `fix`, `docs`, `style`, `chore`) for a clean, readable Git history.
-- **Lazy Initialization**: `localStorage` reads are wrapped in lazy `useState` initializers to avoid redundant reads on every re-render.
+- **TypeScript Strict Mode**: Full type safety enforced across all components, contexts, and interfaces.
+- **Conventional Commits**: All version control follows the Conventional Commits specification.
+- **Intricate Code Documentation**: Every UI component includes detailed explanatory comments to assist with educational maintenance.
 
 ---
 
 ## 📋 Requirements Checklist
 
+- [x] Phase 4: Build Reusable UI Components
 - [ ] View all invoices
 - [ ] Filter invoices by status (Draft, Pending, Paid)
 - [ ] View a single invoice's details
@@ -125,6 +123,13 @@ The app uses **React Context API** for global state, avoiding third-party state 
 - [ ] Edit an existing invoice
 - [ ] Delete an invoice
 - [ ] Mark an invoice as paid
+- [ ] Responsive design (Mobile, Tablet, Desktop)
+- [x] Persistent Light/Dark mode toggle
+
+---
+
+*Built with ❤️ by Godwin Goje*
+ invoice as paid
 - [ ] Responsive design (Mobile, Tablet, Desktop)
 - [x] Persistent Light/Dark mode toggle
 
