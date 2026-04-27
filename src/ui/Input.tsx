@@ -8,13 +8,14 @@ interface InputProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     error?: string;
     name?: string;
+    placeholder: string;
 }
 
-const Input: React.FC<InputProps> = ({ label, id, type = 'text', value, onChange, error, name }) => {
+const Input: React.FC<InputProps> = ({ label, id, type = 'text', value, onChange, error, name, placeholder }) => {
     return (
         <div className='flex flex-col gap-2 w-full'>
             <div className='flex justify-between items-center'>
-                <label 
+                <label
                     htmlFor={id}
                     className={`text-[13px] font-medium ${error ? 'text-[#ec5757]' : 'text-[var(--text-secondary)]'}`}
                 >
@@ -28,11 +29,12 @@ const Input: React.FC<InputProps> = ({ label, id, type = 'text', value, onChange
                 name={name}
                 value={value}
                 onChange={onChange}
+                placeholder={placeholder}
                 className={`w-full py-4 px-5 rounded-md border font-bold text-[15px] outline-none transition-all
-                    ${error 
-                        ? 'border-[#ec5757]' 
+                    ${error
+                        ? 'border-[#ec5757]'
                         : 'border-[var(--border-color)] focus:border-[var(--brand-purple)]'
-                    } bg-[var(--bg-card)] text-[var(--text-primary)]`} 
+                    } bg-[var(--bg-card)] text-[var(--text-primary)]`}
             />
         </div>
     );

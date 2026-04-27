@@ -6,7 +6,7 @@ interface ButtonProps {
     children: React.ReactNode;
     icon?: React.ReactNode;
     variant?: ButtonVariant;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     type?: 'button' | 'submit' | 'reset';
     disabled?: boolean;
     className?: string;

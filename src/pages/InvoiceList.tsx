@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 import React, { useState } from 'react';
 import { useInvoices } from '../context/InvoiceContext';
 import { Plus } from 'lucide-react';
@@ -5,7 +7,8 @@ import Button from '../ui/Button';
 import FilterDropdown from '../ui/FilterDropdown';
 import InvoiceCard from '../ui/InvoiceCard';
 import InvoiceForm from '../component/InvoiceForm';
-import emptyImg from '../assets/there-is-nothing-here-logo.svg';
+import emptyImgDark from '../assets/there-is-nothing-here-logo.svg';
+import emptyImgLight from '../assets/there-is-nothing-here-light.svg';
 
 const InvoiceList: React.FC = () => {
     const { invoices, filterStatus, setFilterStatus } = useInvoices();
@@ -15,6 +18,9 @@ const InvoiceList: React.FC = () => {
         if (filterStatus === 'all') return true;
         return invoice.status === filterStatus;
     });
+
+    const themeContext = useContext(ThemeContext);
+    const theme = themeContext?.theme || 'light';
 
     return (
         <div className="w-full">
@@ -28,7 +34,7 @@ const InvoiceList: React.FC = () => {
                 <div className='flex items-center gap-10'>
                     <FilterDropdown
                         currentFilters={filterStatus === 'all' ? [] : [filterStatus]}
-                        onFilterChange={(status) => setFilterStatus(status)} 
+                        onFilterChange={(status) => setFilterStatus(status)}
                     />
                     <Button
                         variant='primary'
@@ -51,8 +57,8 @@ const InvoiceList: React.FC = () => {
                     ))
                 ) : (
                     <div className="flex flex-col items-center justify-center text-center mt-12 md:mt-24">
-                        {/* The SVG already contains the "There is nothing here" text */}
-                        <img src={emptyImg} alt="No invoices" className="w-[242px] h-auto" />
+
+                        <img src={theme === 'light' ? emptyImgLight : emptyImgDark} alt="No invoices" className="w-[242px] h-auto" />
                     </div>
                 )}
             </div>

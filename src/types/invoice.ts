@@ -3,7 +3,7 @@ export type InvoiceStatus = 'draft' | 'pending' | 'paid';
 
 // An interface is TypeScript's way of defining the exact shape of an obejct,
 // export interface InvoiceItem describes the full invoice object
-export interface InvoiceItem {
+export interface Item {
     name: string;
     quantity: number;
     price: number;
@@ -32,6 +32,6 @@ export interface Invoice {
         country: string;
     };
     // The union type is reused, [] means this is an array of InvoiceItem objects, since an invoice can have multiple line items
-    items: InvoiceItem[];
+    items: Item[];
     total: number;
 }
