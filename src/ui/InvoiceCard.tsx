@@ -29,7 +29,7 @@ const InvoiceCard: React.FC<InvoiceCardProps> = ({ invoice }) => {
     return (
         <Link
             to={`/invoice/${invoice.id}`}
-            className='grid grid-cols-2 md:grid-cols-[repeat(5,1fr)_auto items-center gap-4 p-6 rounded-lg shadow-sm border border-transparent hover:border-[#7c5dfa] transition-all group'
+            className='grid grid-cols-2 md:grid-cols-[repeat(5,1fr)_auto] items-center gap-4 p-6 rounded-lg shadow-sm border border-transparent hover:border-[#7c5dfa] transition-all group'
             style={{ backgroundColor: 'var(--bg-card)' }}
         >
             {/* 1. ID */}
@@ -60,7 +60,7 @@ const InvoiceCard: React.FC<InvoiceCardProps> = ({ invoice }) => {
             </div>
 
             {/* 6. Arrow(Hidden on mobile) */}
-            <ChevronRight size={16} className='hidden md:block text-(--brand-purple)' />
+            <ChevronRight size={16} className='hidden md:block text-[#7c5dfa]' />
         </Link>
     )
 }

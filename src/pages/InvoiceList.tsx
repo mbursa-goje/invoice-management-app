@@ -24,7 +24,7 @@ const InvoiceList: React.FC = () => {
 
     return (
         <div className="w-full">
-            <header className='flex justify-between items-center mb-16'>
+            <header className='flex justify-between items-center '>
                 <div>
                     <h1 className='text-[32px] font-bold text-[var(--text-primary)]'>Invoices</h1>
                     <p className='text-[13px] text-[var(--text-secondary)] mt-1'>
@@ -56,7 +56,7 @@ const InvoiceList: React.FC = () => {
                         <InvoiceCard key={invoice.id} invoice={invoice} />
                     ))
                 ) : (
-                    <div className="flex flex-col items-center justify-center text-center mt-12 md:mt-24">
+                    <div className="flex flex-col items-center justify-center text-center mt-8 md:mt-12">
 
                         <img src={theme === 'light' ? emptyImgLight : emptyImgDark} alt="No invoices" className="w-[242px] h-auto" />
                     </div>

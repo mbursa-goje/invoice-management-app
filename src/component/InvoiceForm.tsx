@@ -116,84 +116,87 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
     ];
 
     return (
-        <div className="fixed p-8 z-[2000]">
+        <div className="fixed inset-0 z-[2000]">
             {/* Backdrop */}
-            <div className="absolute m-auto bg-black/50" onClick={onClose} />
+            <div className="absolute inset-0 left-0 bg-black/50" onClick={onClose} />
 
             {/*Sliding Form */}
             <aside
-                className="fixed flex flex-col md:left-[103px] w-full max-w-[800px] h-full overflow-y-auto bg-[var(--bg-body)] pt-20 pb-32 px-12 md:px-14 animate-slide-in shadow-2xl"
+                style={{ left: '103px', width: 'calc(100% - 103px)', maxWidth: '719px' }}
+                className="fixed top-0 flex flex-col h-full bg-[var(--bg-body)] animate-slide-in shadow-2xl z-[2001] overflow-hidden"
             >
-                <h2 className="text-[24px] font-bold text-[var(--text-primary)] mb-12">
-                    {invoiceToEdit ? (
-                        <>Edit <span className="text-[var(--text-secondary)]">#</span>{invoiceToEdit.id}</>
-                    ) : 'New Invoice'}
-                </h2>
+                {/* Scrollable content area */}
+                <div className="flex-1 overflow-y-auto px-12 md:px-20 pt-18 pb-8">
+                    <h2 className="text-[24px] font-bold text-[var(--text-primary)] mb-3">
+                        {invoiceToEdit ? (
+                            <>Edit <span className="text-[var(--text-secondary)]">#</span>{invoiceToEdit.id}</>
+                        ) : 'New Invoice'}
+                    </h2>
 
-                <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-12">
-                    {/* Bill From */}
-                    <section>
-                        <h3 className="text-[12px] font-bold text-[var(--brand-purple)] mb-6 uppercase tracking-wider">Bill From</h3>
-                        <Input
-                            label="Street Address" id="s-street" placeholder="e.g. 19 Union Terrace" value={formData.senderAddress?.street || ''}
-                            onChange={(e) => handleAddressChange('senderAddress', 'street', e.target.value)}
-                        />
-                        <div className="grid grid-cols-3 gap-6 mt-6">
-                            <Input label="City" id="s-city" placeholder="e.g. London" value={formData.senderAddress?.city || ''} onChange={(e) => handleAddressChange('senderAddress', 'city', e.target.value)} />
-                            <Input label="Post Code" id="s-post" placeholder="e.g. E1 3EZ" value={formData.senderAddress?.postCode || ''} onChange={(e) => handleAddressChange('senderAddress', 'postCode', e.target.value)} />
-                            <Input label="Country" id="s-country" placeholder="e.g. United Kingdom" value={formData.senderAddress?.country || ''} onChange={(e) => handleAddressChange('senderAddress', 'country', e.target.value)} />
+                    <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-10 pb-6">
+                        {/* Bill From */}
+                        <section>
+                            <h3 className="text-[12px] font-bold text-[var(--brand-purple)] mb-6 uppercase tracking-wider">Bill From</h3>
+                            <Input
+                                label="Street Address" id="s-street" placeholder="e.g. 19 Union Terrace" value={formData.senderAddress?.street || ''}
+                                onChange={(e) => handleAddressChange('senderAddress', 'street', e.target.value)}
+                            />
+                            <div className="grid grid-cols-3 gap-6 mt-6">
+                                <Input label="City" id="s-city" placeholder="e.g. London" value={formData.senderAddress?.city || ''} onChange={(e) => handleAddressChange('senderAddress', 'city', e.target.value)} />
+                                <Input label="Post Code" id="s-post" placeholder="e.g. E1 3EZ" value={formData.senderAddress?.postCode || ''} onChange={(e) => handleAddressChange('senderAddress', 'postCode', e.target.value)} />
+                                <Input label="Country" id="s-country" placeholder="e.g. United Kingdom" value={formData.senderAddress?.country || ''} onChange={(e) => handleAddressChange('senderAddress', 'country', e.target.value)} />
+                            </div>
+                        </section>
+
+                        {/* Bill To */}
+                        <section>
+                            <h3 className="text-[12px] font-bold text-[var(--brand-purple)] mb-6 uppercase tracking-wider">Bill To</h3>
+                            <Input label="Client's Name" id="c-name" placeholder="e.g. Alex Richter" value={formData.clientName || ''} onChange={(e) => setFormData({ ...formData, clientName: e.target.value })} />
+                            <div className="mt-6">
+                                <Input label="Client's Email" id="c-email" placeholder="e.g. alex@example.com" value={formData.clientEmail || ''} onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })} />
+                            </div>
+                            <div className="mt-6">
+                                <Input label="Street Address" id="c-street" placeholder="e.g. 84 Church Way" value={formData.clientAddress?.street || ''} onChange={(e) => handleAddressChange('clientAddress', 'street', e.target.value)} />
+                            </div>
+                            <div className="grid grid-cols-3 gap-6 mt-6">
+                                <Input label="City" id="c-city" placeholder="e.g. Bradford" value={formData.clientAddress?.city || ''} onChange={(e) => handleAddressChange('clientAddress', 'city', e.target.value)} />
+                                <Input label="Post Code" id="c-post" placeholder="e.g. BD1 9PB" value={formData.clientAddress?.postCode || ''} onChange={(e) => handleAddressChange('clientAddress', 'postCode', e.target.value)} />
+                                <Input label="Country" id="c-country" placeholder="e.g. United Kingdom" value={formData.clientAddress?.country || ''} onChange={(e) => handleAddressChange('clientAddress', 'country', e.target.value)} />
+                            </div>
+                        </section>
+
+                        <div className="grid grid-cols-2 gap-6">
+                            <DatePicker label="Invoice Date" value={formData.createdAt || ''} onChange={(date) => setFormData({ ...formData, createdAt: date })} />
+                            <Select label="Payment Terms" options={paymentOptions} value={formData.paymentTerms || 30} onChange={(val) => setFormData({ ...formData, paymentTerms: Number(val) })} />
                         </div>
-                    </section>
 
-                    {/* Bill To */}
-                    <section>
-                        <h3 className="text-[12px] font-bold text-[var(--brand-purple)] mb-6 uppercase tracking-wider">Bill To</h3>
-                        <Input label="Client's Name" id="c-name" placeholder="e.g. Alex Richter" value={formData.clientName || ''} onChange={(e) => setFormData({ ...formData, clientName: e.target.value })} />
-                        <div className="mt-6">
-                            <Input label="Client's Email" id="c-email" placeholder="e.g. alex@example.com" value={formData.clientEmail || ''} onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })} />
-                        </div>
-                        <div className="mt-6">
-                            <Input label="Street Address" id="c-street" placeholder="e.g. 84 Church Way" value={formData.clientAddress?.street || ''} onChange={(e) => handleAddressChange('clientAddress', 'street', e.target.value)} />
-                        </div>
-                        <div className="grid grid-cols-3 gap-6 mt-6">
-                            <Input label="City" id="c-city" placeholder="e.g. Bradford" value={formData.clientAddress?.city || ''} onChange={(e) => handleAddressChange('clientAddress', 'city', e.target.value)} />
-                            <Input label="Post Code" id="c-post" placeholder="e.g. BD1 9PB" value={formData.clientAddress?.postCode || ''} onChange={(e) => handleAddressChange('clientAddress', 'postCode', e.target.value)} />
-                            <Input label="Country" id="c-country" placeholder="e.g. United Kingdom" value={formData.clientAddress?.country || ''} onChange={(e) => handleAddressChange('clientAddress', 'country', e.target.value)} />
-                        </div>
-                    </section>
+                        <Input label="Project Description" id="desc" placeholder="e.g. Graphic Design Service" value={formData.description || ''} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
 
-                    <div className="grid grid-cols-2 gap-6">
-                        <DatePicker label="Invoice Date" value={formData.createdAt || ''} onChange={(date) => setFormData({ ...formData, createdAt: date })} />
-                        <Select label="Payment Terms" options={paymentOptions} value={formData.paymentTerms || 30} onChange={(val) => setFormData({ ...formData, paymentTerms: Number(val) })} />
-                    </div>
-
-                    <Input label="Project Description" id="desc" placeholder="e.g. Graphic Design Service" value={formData.description || ''} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
-
-                    {/* Item List */}
-                    <section>
-                        <h3 className="text-[18px] font-bold text-[#777f98] mb-6">Item List</h3>
-                        <div className="flex flex-col gap-4">
-                            {formData.items?.map((item, index) => (
-                                <div key={index} className="grid grid-cols-[3fr_1fr_2fr_1fr_auto] gap-4 items-end">
-                                    <Input label="Item Name" id={`n-${index}`} placeholder="e.g. Banner Design" value={item.name} onChange={(e) => updateItem(index, 'name', e.target.value)} />
-                                    <Input label="Qty." id={`q-${index}`} type="number" placeholder="1" value={item.quantity} onChange={(e) => updateItem(index, 'quantity', e.target.value)} />
-                                    <Input label="Price" id={`p-${index}`} type="number" placeholder="0.00" value={item.price} onChange={(e) => updateItem(index, 'price', e.target.value)} />
-                                    <div className="flex flex-col gap-2">
-                                        <label className="text-[13px] font-medium text-[var(--text-secondary)]">Total</label>
-                                        <span className="h-[58px] flex items-center font-bold text-[var(--text-secondary)]">£{item.total.toFixed(2)}</span>
+                        {/* Item List */}
+                        <section>
+                            <h3 className="text-[18px] font-bold text-[#777f98] mb-6">Item List</h3>
+                            <div className="flex flex-col gap-4">
+                                {formData.items?.map((item, index) => (
+                                    <div key={index} className="grid grid-cols-[3fr_1fr_2fr_1fr_auto] gap-4 items-end">
+                                        <Input label="Item Name" id={`n-${index}`} placeholder="e.g. Banner Design" value={item.name} onChange={(e) => updateItem(index, 'name', e.target.value)} />
+                                        <Input label="Qty." id={`q-${index}`} type="number" placeholder="1" value={item.quantity} onChange={(e) => updateItem(index, 'quantity', e.target.value)} />
+                                        <Input label="Price" id={`p-${index}`} type="number" placeholder="0.00" value={item.price} onChange={(e) => updateItem(index, 'price', e.target.value)} />
+                                        <div className="flex flex-col gap-2">
+                                            <label className="text-[13px] font-medium text-[var(--text-secondary)]">Total</label>
+                                            <span className="h-[58px] flex items-center font-bold text-[var(--text-secondary)]">£{item.total.toFixed(2)}</span>
+                                        </div>
+                                        <button type="button" onClick={() => removeItem(index)} className="mb-4 text-[#888eb0] hover:text-[var(--brand-red)] transition-colors">
+                                            <Trash2 size={18} />
+                                        </button>
                                     </div>
-                                    <button type="button" onClick={() => removeItem(index)} className="mb-4 text-[#888eb0] hover:text-[var(--brand-red)] transition-colors">
-                                        <Trash2 size={18} />
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                        <Button variant="secondary" type="button" className="w-full mt-4" onClick={addItem} icon={<Plus size={14} />}>Add New Item</Button>
-                    </section>
-                </form>
-
-                {/* Form Footer */}
-                <div className="flex-end mt-4 bottom-0 left-0 md:left-[103px] w-full md:w-[720px] bg-[var(--bg-body)] p-6 md:px-14 flex justify-between items-center shadow-[0_-10px_30px_rgba(0,0,0,0.1)] z-[2100] rounded-tr-[20px]">
+                                ))}
+                            </div>
+                            <Button variant="secondary" type="button" className="w-full mb-4" onClick={addItem} icon={<Plus size={14} />}>Add New Item</Button>
+                        </section>
+                    </form>
+                </div>
+                {/* Sticky Form Footer */}
+                <div className="w-full bg-[var(--bg-body)] px-8 md:px-14 py-6 flex justify-between items-center gap-4 shadow-[0_-8px_24px_rgba(0,0,0,0.12)] z-10">
                     <Button variant="secondary" onClick={onClose}>Discard</Button>
                     <div className="flex gap-4">
                         {!invoiceToEdit && (

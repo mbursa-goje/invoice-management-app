@@ -35,16 +35,16 @@ const InvoiceDetail: React.FC = () => {
     };
 
     return (
-        <div className="max-w-[730px] mx-auto py-8 px-6 md:px-0 mb-20">
-            <Link 
-                to="/" 
+        <div className="max-w-[730px] mx-auto py-6 px-6 md:px-4 mb-20">
+            <Link
+                to="/"
                 className="flex items-center gap-6 text-[15px] font-bold text-[var(--text-primary)] hover:text-[var(--text-secondary)] transition-colors mb-8 group"
             >
                 <ChevronLeft size={16} className="text-[var(--primary)]" />
                 Go back
             </Link>
 
-            <header 
+            <header
                 className="rounded-lg shadow-sm mb-8 flex items-center justify-between"
                 style={{ backgroundColor: 'var(--bg-card)', padding: '28px 40px' }}
             >
@@ -64,11 +64,11 @@ const InvoiceDetail: React.FC = () => {
                 </div>
             </header>
 
-            <article 
-                className="rounded-lg shadow-sm p-8 md:p-14 mb-8"
+            <article
+                className="rounded-lg shadow-sm p-6 md:p-10 mb-8"
                 style={{ backgroundColor: 'var(--bg-card)' }}
             >
-                <div className="flex flex-col md:flex-row justify-between gap-8 mb-12">
+                <div className="flex flex-col md:flex-row justify-between gap-8 mb-12 p-8">
                     <div>
                         <h1 className="text-[16px] font-bold text-[var(--text-primary)] mb-2">
                             <span className="text-[var(--text-secondary)]">#</span>{invoice.id}
@@ -114,17 +114,17 @@ const InvoiceDetail: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="mt-12 rounded-lg overflow-hidden">
-                    <div className="hidden md:grid grid-cols-[3fr_1fr_1fr_1fr] gap-4 p-8 bg-[#f9fafe] dark:bg-[#252945]">
+                <div className="mt-8 rounded-lg overflow-hidden">
+                    <div className="hidden md:grid grid-cols-[3fr_1fr_1fr_1fr] gap-4 p-5" style={{ backgroundColor: 'var(--bg-btn-secondary)' }}>
                         <span className="text-[11px] text-[var(--text-secondary)] font-medium">Item Name</span>
                         <span className="text-[11px] text-[var(--text-secondary)] font-medium text-center">QTY.</span>
                         <span className="text-[11px] text-[var(--text-secondary)] font-medium text-right">Price</span>
                         <span className="text-[11px] text-[var(--text-secondary)] font-medium text-right">Total</span>
                     </div>
 
-                    <div className="bg-[#f9fafe] dark:bg-[#252945] px-6 md:px-8 pb-8 flex flex-col gap-8">
+                    <div className="px-6 md:px-8 pb-6 flex flex-col gap-4" style={{ backgroundColor: 'var(--bg-btn-secondary)' }}>
                         {invoice.items.map((item, index) => (
-                            <div key={index} className="grid grid-cols-2 md:grid-cols-[3fr_1fr_1fr_1fr] items-center gap-4 pt-8 md:pt-0">
+                            <div key={index} className="grid grid-cols-2 md:grid-cols-[3fr_1fr_1fr_1fr] items-center gap-4 pt-6 md:pt-2">
                                 <div className="flex flex-col gap-2">
                                     <span className="text-[13px] font-bold text-[var(--text-primary)]">{item.name}</span>
                                     <span className="md:hidden text-[13px] font-bold text-[var(--text-secondary)]">
@@ -138,7 +138,7 @@ const InvoiceDetail: React.FC = () => {
                         ))}
                     </div>
 
-                    <div className="bg-[#373b53] dark:bg-[#0c0e16] p-6 md:p-8 flex items-center justify-between">
+                    <div className="bg-[#373b53] dark:bg-[#0c0e16] p-5 md:p-6 flex items-center justify-between">
                         <span className="text-[13px] text-white font-medium">
                             {invoice.status === 'paid' ? 'Amount Paid' : 'Amount Due'}
                         </span>
@@ -158,7 +158,7 @@ const InvoiceDetail: React.FC = () => {
                 )}
             </div>
 
-            <Modal 
+            <Modal
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
                 onConfirm={handleDelete}
@@ -166,9 +166,9 @@ const InvoiceDetail: React.FC = () => {
                 description={`Are you sure you want to delete invoice #${invoice.id}? This action cannot be undone.`}
             />
 
-            <InvoiceForm 
-                isOpen={isFormOpen} 
-                onClose={() => setIsFormOpen(false)} 
+            <InvoiceForm
+                isOpen={isFormOpen}
+                onClose={() => setIsFormOpen(false)}
                 invoiceToEdit={invoice}
             />
         </div>

@@ -33,7 +33,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> =
                     Filter <span className="hidden md:inline">by status</span>
                     <ChevronDown
                         size={14}
-                        className={`text-(--brand-purple) transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                        className={`text-[#7c5dfa] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                     />
                 </button>
 
