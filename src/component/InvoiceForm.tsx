@@ -122,7 +122,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
 
             {/*Sliding Form */}
             <aside
-                className="fixed top-0 flex flex-col md:left-[103px] w-full max-w-[800px] h-full overflow-y-auto bg-[var(--bg-body)] pt-20 pb-32 px-12 md:px-14 animate-slide-in shadow-2xl"
+                className="p-[100px] fixed top-0 flex flex-col md:left-[103px] w-full max-w-[800px] h-full overflow-y-auto bg-[var(--bg-body)] pt-20 pb-32 px-12 md:px-14 animate-slide-in shadow-2xl"
             >
                 <h2 className="text-[24px] font-bold text-[var(--text-primary)] mb-12">
                     {invoiceToEdit ? (
@@ -193,7 +193,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
                 </form>
 
                 {/* Form Footer */}
-                <div className="flex-end bottom-0 left-0 md:left-[103px] w-full md:w-[720px] bg-[var(--bg-body)] p-6 md:px-14 flex justify-between items-center shadow-[0_-10px_30px_rgba(0,0,0,0.1)] z-[2100] rounded-tr-[20px]">
+                <div className="flex-end mt-4 bottom-0 left-0 md:left-[103px] w-full md:w-[720px] bg-[var(--bg-body)] p-6 md:px-14 flex justify-between items-center shadow-[0_-10px_30px_rgba(0,0,0,0.1)] z-[2100] rounded-tr-[20px]">
                     <Button variant="secondary" onClick={onClose}>Discard</Button>
                     <div className="flex gap-4">
                         {!invoiceToEdit && (
