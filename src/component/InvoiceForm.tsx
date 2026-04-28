@@ -116,13 +116,13 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
     ];
 
     return (
-        <div className="fixed inset-0 z-[2000]">
+        <div className="fixed p-8 z-[2000]">
             {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+            <div className="absolute m-auto bg-black/50" onClick={onClose} />
 
             {/*Sliding Form */}
             <aside
-                className="fixed top-0 flex flex-col md:left-[103px] w-full max-w-[800px] h-full overflow-y-auto bg-[var(--bg-body)] pt-20 pb-32 px-12 md:px-14 animate-slide-in shadow-2xl"
+                className="fixed flex flex-col md:left-[103px] w-full max-w-[800px] h-full overflow-y-auto bg-[var(--bg-body)] pt-20 pb-32 px-12 md:px-14 animate-slide-in shadow-2xl"
             >
                 <h2 className="text-[24px] font-bold text-[var(--text-primary)] mb-12">
                     {invoiceToEdit ? (
