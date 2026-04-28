@@ -122,7 +122,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ isOpen, onClose, invoiceToEdi
 
             {/*Sliding Form */}
             <aside
-                className="p-[100px] fixed top-0 flex flex-col md:left-[103px] w-full max-w-[800px] h-full overflow-y-auto bg-[var(--bg-body)] pt-20 pb-32 px-12 md:px-14 animate-slide-in shadow-2xl"
+                className="fixed top-0 flex flex-col md:left-[103px] w-full max-w-[800px] h-full overflow-y-auto bg-[var(--bg-body)] pt-20 pb-32 px-12 md:px-14 animate-slide-in shadow-2xl"
             >
                 <h2 className="text-[24px] font-bold text-[var(--text-primary)] mb-12">
                     {invoiceToEdit ? (

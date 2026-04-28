@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({ label, id, type = 'text', value, onChange
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
-                className={`w-full py-4 px-5 rounded-md border font-bold text-[15px] outline-none transition-all ml-4
+                className={`w-full py-4 px-5 rounded-md border font-bold text-[15px] outline-none transition-all
                     ${error
                         ? 'border-[#ec5757]'
                         : 'border-[var(--border-color)] focus:border-[var(--brand-purple)]'

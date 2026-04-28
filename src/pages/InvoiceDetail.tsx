@@ -45,8 +45,8 @@ const InvoiceDetail: React.FC = () => {
             </Link>
 
             <header 
-                className="rounded-lg shadow-sm mb-6 flex items-center justify-between"
-                style={{ backgroundColor: 'var(--bg-card)', padding: '24px 32px' }}
+                className="rounded-lg shadow-sm mb-8 flex items-center justify-between"
+                style={{ backgroundColor: 'var(--bg-card)', padding: '28px 40px' }}
             >
                 <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
                     <span className="text-[13px] text-[var(--text-secondary)] font-medium">Status</span>
@@ -65,7 +65,7 @@ const InvoiceDetail: React.FC = () => {
             </header>
 
             <article 
-                className="rounded-lg shadow-sm p-6 md:p-12 mb-8"
+                className="rounded-lg shadow-sm p-8 md:p-14 mb-8"
                 style={{ backgroundColor: 'var(--bg-card)' }}
             >
                 <div className="flex flex-col md:flex-row justify-between gap-8 mb-12">
