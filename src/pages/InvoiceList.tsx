@@ -24,14 +24,14 @@ const InvoiceList: React.FC = () => {
 
     return (
         <div className="w-full">
-            <header className='flex justify-between items-center '>
-                <div>
-                    <h1 className='text-[32px] font-bold text-[var(--text-primary)]'>Invoices</h1>
+            <header className='flex items-center justify-between gap-4'>
+                <div className='min-w-0'>
+                    <h1 className='text-[28px] min-[375px]:text-[32px] font-bold text-[var(--text-primary)]'>Invoices</h1>
                     <p className='text-[13px] text-[var(--text-secondary)] mt-1'>
                         {invoices.length > 0 ? `There are ${invoices.length} total invoices` : 'No invoices'}
                     </p>
                 </div>
-                <div className='flex items-center gap-10'>
+                <div className='flex shrink-0 items-center gap-3 sm:gap-5 md:gap-10'>
                     <FilterDropdown
                         currentFilters={filterStatus === 'all' ? [] : [filterStatus]}
                         onFilterChange={(status) => setFilterStatus(status)}
@@ -39,13 +39,15 @@ const InvoiceList: React.FC = () => {
                     <Button
                         variant='primary'
                         onClick={() => setIsFormOpen(true)}
+                        compactOnMobile
                         icon={
                             <div className='bg-white w-8 h-8 rounded-full flex items-center justify-center'>
                                 <Plus size={16} style={{ color: 'var(--brand-purple)' }} />
                             </div>
                         }
                     >
-                        New Invoice
+                        <span className='sm:hidden'>New</span>
+                        <span className='hidden sm:inline'>New Invoice</span>
                     </Button>
                 </div>
             </header>

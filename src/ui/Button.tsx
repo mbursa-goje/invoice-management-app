@@ -10,6 +10,7 @@ interface ButtonProps {
     type?: 'button' | 'submit' | 'reset';
     disabled?: boolean;
     className?: string;
+    compactOnMobile?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,9 +21,17 @@ const Button: React.FC<ButtonProps> = ({
     type = 'button',
     disabled = false,
     className = '',
+    compactOnMobile = false,
 }) => {
 
-    const baseClasses = 'rounded-full font-bold text-[12px] tracking-[-0.25px] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseClasses = 'flex h-12 items-center justify-center rounded-full border-0 font-bold text-[12px] tracking-[-0.25px] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+    const spacingClasses = compactOnMobile
+        ? icon
+            ? 'gap-2 pl-2 pr-3 sm:gap-4 sm:pr-6'
+            : 'px-4 sm:px-6'
+        : icon
+            ? 'gap-4 pl-2 pr-6'
+            : 'px-6';
 
     const getVariantStyle = (v: ButtonVariant): React.CSSProperties => {
         switch (v) {
@@ -39,17 +48,9 @@ const Button: React.FC<ButtonProps> = ({
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`${baseClasses} ${className}`}
+            className={`${baseClasses} ${spacingClasses} ${className}`}
             style={{
                 ...getVariantStyle(variant),
-                height: '48px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingLeft: icon ? '8px' : '24px',
-                paddingRight: '24px',
-                gap: '16px',
-                border: 'none',
             }}
         >
             {icon && <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>{icon}</div>}
