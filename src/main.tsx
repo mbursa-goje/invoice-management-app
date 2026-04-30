@@ -1,9 +1,16 @@
-import { StrictMode } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.js'
+import './index.css'
+import App from './App'
+import { InvoiceProvider } from './context/InvoiceContext'
+import { ThemeProvider } from './context/ThemeContext'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <React.StrictMode>
+    <ThemeProvider>
+      <InvoiceProvider>
+        <App />
+      </InvoiceProvider>
+    </ThemeProvider>
+  </React.StrictMode>,
 )

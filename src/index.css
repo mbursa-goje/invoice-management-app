@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --brand-purple: #7c5dfa;
+  --brand-purple-light: #9277ff;
+  --brand-red: #ec5757;
+  --brand-red-light: #ff9797;
+  --primary: #7c5dfa;
+  --primary-hover: #9277ff;
+  --danger: #ec5757;
+  --danger-hover: #ff9797;
+  --bg-body: #f8f8fb;
+  --bg-card: #ffffff;
+  --bg-sidebar: #373b53;
+  --text-primary: #0c0e16;
+  --text-secondary: #888eb0;
+  --font-main: 'League Spartan', sans-serif;
+  --border-color: #dfe3fa;
+  --input-bg: #ffffff;
+  --input-border: #dfe3fa;
+  --bg-btn-secondary: #f9fafe;
+}
+
+[data-theme='dark'] {
+  --bg-body: #141625;
+  --bg-card: #1e2139;
+  --bg-sidebar: #1e2139;
+  --bg-btn-secondary: #252945;
+  --text-primary: #ffffff;
+  --text-secondary: #dfe3fa;
+  --border-color: #252945;
+  --input-bg: #1e2139;
+  --input-border: #252945;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-main);
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out forwards;
+}

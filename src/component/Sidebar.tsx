@@ -9,13 +9,13 @@ const Sidebar: React.FC = () => {
     const { theme, toggleTheme } = themeContext;
 
     return (
-        <aside style={styles.sidebar}>
-            <div style={styles.logoContainer}>
-                <img src={logo} alt="Invoice Logo" className='w-10 h-10' />
+        <aside className="fixed left-0 top-0 z-[1000] flex h-20 w-full items-center justify-between bg-[#373b53] md:h-screen md:w-[103px] md:flex-col md:rounded-r-[20px]">
+            <div className="flex h-20 w-20 items-center justify-center rounded-r-[20px] bg-[#7c5dfa] md:h-[103px] md:w-[103px]">
+                <img src={logo} alt="Invoice Logo" className="h-10 w-10" />
             </div>
 
-            <div style={styles.bottomSection}>
-                <button onClick={toggleTheme} style={styles.themeButton}>
+            <div className="flex h-full items-center md:h-auto md:w-full md:flex-col">
+                <button onClick={toggleTheme} className="flex h-20 w-20 items-center justify-center md:h-auto md:w-full md:pb-6">
                     {theme === 'light' ? (
                         <Moon size={24} color="#888eb0" />
                     ) : (
@@ -23,58 +23,14 @@ const Sidebar: React.FC = () => {
                     )}
                 </button>
 
-                <div className="w-full h-[1px] bg-[#494e6e] mb-6 opacity-30"></div>
+                <div className="h-full w-[1px] bg-[#494e6e] opacity-30 md:mb-6 md:h-[1px] md:w-full"></div>
 
-                <div style={styles.avatar}>
+                <div className="mx-6 h-10 w-10 overflow-hidden rounded-full md:mx-0 md:mb-6">
                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="avatar" className="rounded-full" />
                 </div>
             </div>
         </aside>
     );
-}
-
-const styles = {
-    sidebar: {
-        backgroundColor: '#373b53', 
-        width: 'clamp(70px, 103px, 103px)',
-        height: '100vh',
-        position: 'fixed' as const,
-        left: 0,
-        top: 0,
-        display: 'flex',
-        flexDirection: 'column' as const,
-        justifyContent: 'space-between',
-        borderRadius: '0 20px 20px 0',
-        zIndex: 1000, 
-    },
-    logoContainer: {
-        backgroundColor: '#7c5dfa',
-        height: '103px',
-        width: '103px',
-        borderRadius: '0 20px 20px 0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    bottomSection: {
-        display: 'flex',
-        flexDirection: 'column' as const,
-        alignItems: 'center',
-        paddingBottom: '24px',
-        width: '100%',
-    },
-    themeButton: {
-        marginBottom: '24px',
-        background: 'none',
-        border: 'none',
-        cursor: 'pointer',
-    },
-    avatar: {
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        overflow: 'hidden',
-    }
 }
 
 export default Sidebar;

@@ -10,10 +10,10 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-[var(--bg-body)]">
 
-        {/* We use a large left padding to clear the sidebar and center the content */}
-        <main className="md:pl-[103px] transition-all duration-300 w-full flex justify-center pt-4">
-          <Sidebar />
-          <div className="w-full max-w-[730px] px-6 py-4 md:py-9 flex flex-col items-center">
+        <Sidebar />
+
+        <main className="flex w-full justify-center pt-28 transition-all duration-300 md:pl-[103px] md:pt-0">
+          <div className="flex w-full max-w-[730px] flex-col items-center px-6 py-8 md:py-14 lg:max-w-[800px] lg:px-10">
             <div className="w-full">
               <Routes>
                 <Route path="/" element={<InvoiceList />} />
