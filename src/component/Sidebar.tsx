@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
 const styles = {
     sidebar: {
         backgroundColor: '#373b53', 
-        width: '103px',
+        width: 'clamp(70px, 103px, 103px)',
         height: '100vh',
         position: 'fixed' as const,
         left: 0,
