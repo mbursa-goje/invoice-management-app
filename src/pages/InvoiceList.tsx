@@ -10,7 +10,7 @@ import InvoiceForm from '../component/InvoiceForm';
 import emptyImgDark from '../assets/there-is-nothing-here-logo.svg';
 import emptyImgLight from '../assets/there-is-nothing-here-light.svg';
 
-const InvoiceList: React.FC = () => {
+function InvoiceList(){
     const { invoices, filterStatus, setFilterStatus } = useInvoices();
     const [isFormOpen, setIsFormOpen] = useState(false);
 

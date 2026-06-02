@@ -22,7 +22,7 @@ interface InvoiceContextType {
 const InvoiceContext = createContext<InvoiceContextType | undefined>(undefined);
 
 // The Provider component wraps the app and broacasts all invoice data downwards
-export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export default function InvoiceProvider({children}: {children: ReactNode}){
 
     // Loads invoices from localStorage on first mount, another use of lazy initialization
     // () => {
@@ -61,12 +61,13 @@ export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children })
 
     // 2. UPDATE: Finds the invoice by id and replaces it with the new data
     const updateInvoice = (id: string, updatedInvoice: Invoice) => {
-        const updated = invoices.map((inv) =>
+        const updated = [...invoices]
+        const uupdated = updated.map((inv) =>
             // the map() function loops through the entire array and returns updatedInvoice if the inv.id matches the id or does not change anything, if it remains the same.
             inv.id === id ? updatedInvoice : inv
         );
 
-        setInvoices(updated);
+        setInvoices(uupdated);
         localStorage.setItem('invoices', JSON.stringify(updated));
     }
 
@@ -123,4 +124,4 @@ export const useInvoices = () => {
     return context;
 }
 
-export default InvoiceContext;
+ 
